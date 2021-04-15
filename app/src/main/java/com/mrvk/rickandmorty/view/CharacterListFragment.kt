@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrvk.rickandmorty.R
@@ -34,7 +35,7 @@ class CharacterListFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(CharacterListViewModel::class.java)
         viewModel.refreshList()
 
-        rv_character_list.layoutManager = LinearLayoutManager(context)
+        rv_character_list.layoutManager = GridLayoutManager(context,2)
         rv_character_list.adapter = characterAdapter
 
         setListener()
@@ -91,7 +92,7 @@ class CharacterListFragment : Fragment() {
         })
     }
     private fun isLastItemDisplaying(recyclerView: RecyclerView):Boolean {
-        if(recyclerView.getAdapter()?.getItemCount() != 0){
+        if(recyclerView.getAdapter()?.itemCount != 0){
             var lastVisibleItemPosition: Int = (recyclerView?.getLayoutManager() as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
 
             if(lastVisibleItemPosition != RecyclerView.NO_POSITION && lastVisibleItemPosition == recyclerView.getAdapter()?.getItemCount()
