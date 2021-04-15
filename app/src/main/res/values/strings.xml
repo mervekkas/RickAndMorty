@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">RickAndMorty</string>
+    <string name="error_message">Character Not Found</string>
+</resources>
