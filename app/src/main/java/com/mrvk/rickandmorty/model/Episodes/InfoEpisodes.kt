@@ -1,23 +1,23 @@
-package com.mrvk.rickandmorty.model
+package com.mrvk.rickandmorty.model.Episodes
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Info(
+data class InfoEpisodes(
     @SerializedName("count")
     @Expose
-    var count: Int?,
+    val count: Int? = null,
 
     @SerializedName("pages")
     @Expose
-    val pages: Int?,
+    val pages: Int? = null,
 
     @SerializedName("next")
     @Expose
-    val next: String?,
+    val next: String? = null,
 
     @SerializedName("prev")
     @Expose
-    var prev: Any?
+    val prev: Any? = null
 ) {
 }
