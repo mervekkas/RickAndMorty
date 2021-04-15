@@ -1,4 +1,4 @@
-package com.mrvk.rickandmorty.model
+package com.mrvk.rickandmorty.model.Character
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
