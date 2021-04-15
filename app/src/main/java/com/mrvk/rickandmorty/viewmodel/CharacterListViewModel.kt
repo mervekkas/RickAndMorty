@@ -57,6 +57,7 @@ class CharacterListViewModel : ViewModel() {
     }
 
     fun getMoreData() {
+        if (pageCount <= 34)
         characterDataResponse(pageCount++)
     }
 }
