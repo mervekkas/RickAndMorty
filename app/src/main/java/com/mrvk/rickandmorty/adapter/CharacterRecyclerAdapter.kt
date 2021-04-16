@@ -3,16 +3,14 @@ package com.mrvk.rickandmorty.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.mrvk.rickandmorty.R
 import com.mrvk.rickandmorty.model.Character.Result
 import com.mrvk.rickandmorty.util.imageDownload
 import com.mrvk.rickandmorty.util.placeHolderCreate
-import com.mrvk.rickandmorty.view.CharacterListFragmentDirections
 import kotlinx.android.synthetic.main.item_character_list.view.*
 
-class CharacterRecyclerAdapter(var chatacterList: ArrayList<Result>) :
+class CharacterRecyclerAdapter(var characterList: ArrayList<Result>, val listener: CharacterAdapterListener) :
     RecyclerView.Adapter<CharacterRecyclerAdapter.CharacterViewHolder>() {
     class CharacterViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 
@@ -23,30 +21,32 @@ class CharacterRecyclerAdapter(var chatacterList: ArrayList<Result>) :
     }
 
     override fun getItemCount(): Int {
-        return chatacterList.size
+        return characterList.size
     }
 
     override fun onBindViewHolder(holder: CharacterViewHolder, position: Int) {
-        chatacterList.get(position).id?.let { clickItem(holder.itemView, it) }
-        holder.itemView.tv_item_character_list_name.text = chatacterList.get(position).name
-        chatacterList.get(position).image?.let {
+        clickItem(holder.itemView, characterList, position)
+        holder.itemView.tv_item_character_list_name.text = characterList.get(position).name
+        characterList.get(position).image?.let {
             holder.itemView.img_item_character_list.imageDownload(
                 it,
                 placeHolderCreate(holder.itemView.context))
         }
     }
 
-    private fun clickItem(itemView: View, id: Int) {
+    private fun clickItem(itemView: View, chatacterList: List<Result>, position: Int) {
         itemView.setOnClickListener {
-            val action = CharacterListFragmentDirections.actionCharacterListFragmentToCharacterDetailFragment(id)
-            Navigation.findNavController(it).navigate(action)
+            listener.onClicked(chatacterList.get(position))
         }
     }
 
     fun characterListRefresh(newCharacterList : List<Result>) {
-        chatacterList.addAll(newCharacterList)
+        characterList.addAll(newCharacterList)
         notifyDataSetChanged()
     }
 
+    interface CharacterAdapterListener {
+        fun onClicked(model:Result)
+    }
 
 }
