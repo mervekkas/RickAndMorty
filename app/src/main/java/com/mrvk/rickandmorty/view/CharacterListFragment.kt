@@ -12,13 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mrvk.rickandmorty.R
 import com.mrvk.rickandmorty.adapter.CharacterRecyclerAdapter
+import com.mrvk.rickandmorty.model.Character.Result
 import com.mrvk.rickandmorty.viewmodel.CharacterListViewModel
 import kotlinx.android.synthetic.main.fragment_character_list.*
 
-class CharacterListFragment : Fragment() {
+class CharacterListFragment : Fragment(), CharacterRecyclerAdapter.CharacterAdapterListener {
 
     private lateinit var viewModel : CharacterListViewModel
-    private val characterAdapter = CharacterRecyclerAdapter(arrayListOf())
+    private val characterAdapter = CharacterRecyclerAdapter(arrayListOf(), this)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -101,5 +102,12 @@ class CharacterListFragment : Fragment() {
         }
 
         return false
+    }
+
+    override fun onClicked(model: Result) {
+        val fragment = CharacterDetailFragment()
+        fragment.characterLiveData.value = model
+        fragmentManager?.beginTransaction()?.replace(R.id.container_main, fragment)
+            ?.addToBackStack("Tag")?.commit()
     }
 }
