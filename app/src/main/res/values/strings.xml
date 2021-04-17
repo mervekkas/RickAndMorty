@@ -2,4 +2,5 @@
     <string name="app_name">RickAndMorty</string>
     <string name="error_message">Character Not Found</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="list_title">CHARACTERS</string>
 </resources>
