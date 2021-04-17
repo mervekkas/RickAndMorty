@@ -50,7 +50,7 @@ class CharacterListFragment : Fragment(), CharacterRecyclerAdapter.CharacterAdap
     }
 
     private fun setToolBar() {
-        img_left.visibility = View.GONE
+        img_close.visibility = View.GONE
         tool_bar_title.setText(R.string.list_title)
     }
 
