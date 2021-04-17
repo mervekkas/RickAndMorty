@@ -1,23 +1,27 @@
 package com.mrvk.rickandmorty.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import com.mrvk.rickandmorty.R
 import com.mrvk.rickandmorty.model.Character.Result
+import com.mrvk.rickandmorty.model.Episodes.ResultEpisodes
 import com.mrvk.rickandmorty.util.imageDownload
 import com.mrvk.rickandmorty.util.placeHolderCreate
 import kotlinx.android.synthetic.main.fragment_character_detail.*
-import kotlinx.android.synthetic.main.fragment_character_detail.view.*
 import kotlinx.android.synthetic.main.tool_bar_layout.*
 
 class CharacterDetailFragment : Fragment() {
     val characterLiveData = MutableLiveData<Result>()
-    private lateinit var characterName:String
+    private lateinit var characterName: String
+    var episodesList = mutableListOf<ResultEpisodes>()
+    private var nameEpisodesList = mutableListOf<String?>()
+    private var openClose: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,6 +35,33 @@ class CharacterDetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         observeLiveData()
+        setEpisode()
+    }
+
+    private fun setEpisode() {
+        episodesList.forEach {
+            nameEpisodesList.add(it.name + " (" + it.episode + ")")
+        }
+        val adapter =
+            ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, nameEpisodesList)
+        lv_episodes.adapter = adapter
+        setClickEpisodes()
+    }
+
+    private fun setClickEpisodes() {
+
+        rv_episodes.setOnClickListener {
+            if (openClose){
+                lv_episodes.visibility = View.GONE
+                openClose = false
+                img_detail_episodes.setImageResource(R.drawable.ic_down_34)
+            } else{
+                lv_episodes.visibility = View.VISIBLE
+                openClose = true
+                img_detail_episodes.setImageResource(R.drawable.ic__up_34)
+            }
+
+        }
     }
 
     private fun setToolBar() {
@@ -48,7 +79,8 @@ class CharacterDetailFragment : Fragment() {
                 tv_detail_character_species.text = ", " + it.species
                 tv_detail_character_gender.text = it.gender
                 context?.let { it1 -> placeHolderCreate(it1) }?.let { it2 ->
-                    img_character_detail.imageDownload(it.image.toString(),
+                    img_character_detail.imageDownload(
+                        it.image.toString(),
                         it2
                     )
                 }
