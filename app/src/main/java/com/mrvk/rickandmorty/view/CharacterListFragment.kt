@@ -1,6 +1,7 @@
 package com.mrvk.rickandmorty.view
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,8 @@ class CharacterListFragment : Fragment(), CharacterRecyclerAdapter.CharacterAdap
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+        Log.e("asd","onCreateView")
+
         return inflater.inflate(R.layout.fragment_character_list, container, false)
     }
 
@@ -42,6 +45,8 @@ class CharacterListFragment : Fragment(), CharacterRecyclerAdapter.CharacterAdap
 
         setListener()
         observeLiveData()
+        Log.e("asd","onViewCreated")
+
     }
 
     private fun setToolBar() {
@@ -113,7 +118,30 @@ class CharacterListFragment : Fragment(), CharacterRecyclerAdapter.CharacterAdap
     override fun onClicked(model: Result) {
         val fragment = CharacterDetailFragment()
         fragment.characterLiveData.value = model
+        fragment.episodesList = viewModel.getEpisodesListByCharacter(model.episode)
         fragmentManager?.beginTransaction()?.replace(R.id.container_main, fragment)
             ?.addToBackStack("Tag")?.commit()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e("asd","onResume")
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.e("asd","onStaart")
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.e("asd","onStop")
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e("asd","onPause")
     }
 }
