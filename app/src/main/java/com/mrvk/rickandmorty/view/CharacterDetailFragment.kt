@@ -65,7 +65,7 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private fun setToolBar() {
-        img_left.visibility = View.VISIBLE
+        img_close.visibility = View.VISIBLE
         tool_bar_title.text = characterName
         backClick()
     }
@@ -74,7 +74,6 @@ class CharacterDetailFragment : Fragment() {
         characterLiveData.observe(viewLifecycleOwner, Observer {
             it?.let {
                 characterName = it.name.toString()
-                tv_detail_character_name.text = it.name
                 tv_detail_character_status.text = it.status
                 tv_detail_character_species.text = ", " + it.species
                 tv_detail_character_gender.text = it.gender
@@ -90,7 +89,7 @@ class CharacterDetailFragment : Fragment() {
     }
 
     private fun backClick() {
-        img_left.setOnClickListener {
+        img_close.setOnClickListener {
             requireActivity().onBackPressed()
         }
     }
