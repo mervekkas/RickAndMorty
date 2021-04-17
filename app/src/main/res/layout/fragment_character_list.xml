@@ -4,37 +4,47 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".view.CharacterListFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackground">
+        android:orientation="vertical">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_character_list"
+        <include
+            android:id="@+id/inc_tool_bar_list"
+            layout="@layout/tool_bar_layout"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:background="@color/colorBackground">
 
-        <TextView
-            android:id="@+id/tv_character_list_error_message"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/error_message"
-            style="@style/TextRegular"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:visibility="gone"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_character_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
 
-        <ProgressBar
-            android:id="@+id/progress_character_list"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:visibility="gone"/>
+            <TextView
+                android:id="@+id/tv_character_list_error_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/error_message"
+                style="@style/TextRegular"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:visibility="gone"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <ProgressBar
+                android:id="@+id/progress_character_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
+
 </layout>

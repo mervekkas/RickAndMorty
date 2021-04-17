@@ -15,6 +15,7 @@ import com.mrvk.rickandmorty.adapter.CharacterRecyclerAdapter
 import com.mrvk.rickandmorty.model.Character.Result
 import com.mrvk.rickandmorty.viewmodel.CharacterListViewModel
 import kotlinx.android.synthetic.main.fragment_character_list.*
+import kotlinx.android.synthetic.main.tool_bar_layout.*
 
 class CharacterListFragment : Fragment(), CharacterRecyclerAdapter.CharacterAdapterListener {
 
@@ -27,7 +28,6 @@ class CharacterListFragment : Fragment(), CharacterRecyclerAdapter.CharacterAdap
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_character_list, container, false)
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,11 +36,17 @@ class CharacterListFragment : Fragment(), CharacterRecyclerAdapter.CharacterAdap
         viewModel = ViewModelProviders.of(this).get(CharacterListViewModel::class.java)
         viewModel.refreshList()
 
+        setToolBar()
         rv_character_list.layoutManager = GridLayoutManager(context,2)
         rv_character_list.adapter = characterAdapter
 
         setListener()
         observeLiveData()
+    }
+
+    private fun setToolBar() {
+        img_left.visibility = View.GONE
+        tool_bar_title.setText(R.string.list_title)
     }
 
     fun observeLiveData() {
